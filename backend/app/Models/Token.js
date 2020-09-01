@@ -4,6 +4,25 @@
 const Model = use('Model')
 
 class Token extends Model {
+
+  static boot() {
+    super.boot()
+
+    this.addHook('beforeCreate', async model => {
+      model.token = await str_random(25)
+      const expires_at = new Date()
+      expires_at.getMinutes(expires_at.getMinutes() + 30)
+      model.expires_at = expires_at
+    })
+  }
+
+  static get dates() {
+    return [
+      'created_at',
+      'updated_at',
+      'expires_at'
+    ]
+  }
 }
 
 module.exports = Token
