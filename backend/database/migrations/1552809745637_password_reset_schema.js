@@ -5,7 +5,7 @@ const Schema = use('Schema')
 
 class PasswordResetSchema extends Schema {
   up() {
-    this.create('password_resets', (table) => {
+    this.create('password_resets', table => {
       table.increments()
       table.string('email').notNullable()
       table
@@ -14,6 +14,7 @@ class PasswordResetSchema extends Schema {
         .unique()
 
       table.dateTime('expires_at')
+
       table.timestamps()
 
       table

@@ -6,4 +6,7 @@ tmp
 
 # The development sqlite file
 database/*.sqlite
- 
+
+# The development DB file VSCode Extension
+.vscode/
+LOCAL-5.7.session.sql

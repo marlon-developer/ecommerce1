@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| 0002ClientSeeder
+| ClientSeeder
 |--------------------------------------------------------------------------
 |
 | Make use of the Factory instance to seed database with dummy data or
@@ -17,29 +17,24 @@ const User = use('App/Models/User')
 
 class ClientSeeder {
   async run() {
-
-    const role = await Role.findBy('slug', 'client')
-    const clients = await Factory.model('App/Models/User').createMany(30)
-    await Promisse.all(
-      clients.map(async client => {
-        await client.roles().attach([
-          role.id
-        ])
-      })
-    )
-
-    const user = await User.crete({
-      name: 'Developer',
-      surname: 'IT',
+    //Create System Admin 
+    const user = await User.create({
+      name: 'Marlon',
+      surname: 'da Rosa',
       email: 'dev@dev.com.br',
       password: '123456'
     })
-
     const adminRole = await Role.findBy('slug', 'admin')
-    await user.roles().attach([
-      role.id
-    ])
+    await user.roles().attach([adminRole.id])
 
+    // Create Random Users
+    const role = await Role.findBy('slug', 'client')
+    const clients = await Factory.model('App/Models/User').createMany(30)
+    await Promise.all(
+      clients.map(async client => {
+        await client.roles().attach([role.id])
+      })
+    )
   }
 }
 
