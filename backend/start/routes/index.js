@@ -29,3 +29,8 @@ require('./auth')
  * Import Admin Routes
  */
 require('./admin')
+
+/**
+ * Import Client Routes
+ */
+require('./client')
